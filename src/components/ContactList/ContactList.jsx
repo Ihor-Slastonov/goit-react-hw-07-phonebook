@@ -10,6 +10,7 @@ export const ContactList = ({ contacts }) => {
             <p>
               {name}: {number}
             </p>
+            <button type='button'>delete</button>
           </li>
         );
       })}
