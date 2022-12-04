@@ -2,9 +2,9 @@ import { Component } from 'react';
 
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
-
-import { Container } from './App.styled';
 import { Filter } from 'components/Filter/Filter';
+
+import { Container, Box } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -40,11 +40,17 @@ export class App extends Component {
     });
   };
 
-filteredContacts = () => {
+  filteredContacts = () => {
     const { contacts, filter } = this.state;
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter)
     );
+  };
+
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
   };
 
   render() {
@@ -56,10 +62,20 @@ filteredContacts = () => {
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
 
-        <h2>Contacts</h2>
-        {contacts.length > 0 && <Filter onChange={this.changeFilterValue} />}
-
-        {contacts.length > 0 && <ContactList contacts={filteredContacts} />}
+        {contacts.length > 0 && <h2>Contacts</h2>}
+        {contacts.length > 0 && (
+          <Box>
+            {contacts.length > 0 && (
+              <Filter onChange={this.changeFilterValue} />
+            )}
+            {contacts.length > 0 && (
+              <ContactList
+                contacts={filteredContacts}
+                onDelete={this.deleteContact}
+              />
+            )}
+          </Box>
+        )}
       </Container>
     );
   }

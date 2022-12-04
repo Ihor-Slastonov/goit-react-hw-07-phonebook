@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+import { FilterTitle, FilterField } from './Filter.styled';
+
 export const Filter = ({ onChange }) => {
   const filter = e => {
     const contactName = e.target.value.toLowerCase();
@@ -7,10 +9,10 @@ export const Filter = ({ onChange }) => {
   };
 
   return (
-    <label>
+    <FilterTitle>
       Find contact by name
-      <input type="text" onChange={filter} />
-    </label>
+      <FilterField type="text" onChange={filter} placeholder="Annie" />
+    </FilterTitle>
   );
 };
 
