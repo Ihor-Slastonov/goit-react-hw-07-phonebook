@@ -22,6 +22,12 @@ export const Input = styled.input`
   font-size: 18px;
   border: 2px solid black;
   border-radius: 20px;
+  transition: box-shadow 250ms linear;
+  :hover,
+  :focus {
+    outline: none;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.75);
+  }
 `;
 
 export const SubmitBtn = styled.button`

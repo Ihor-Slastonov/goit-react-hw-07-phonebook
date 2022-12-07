@@ -65,15 +65,12 @@ export class App extends Component {
         {contacts.length > 0 && <h2>Contacts</h2>}
         {contacts.length > 0 && (
           <Box>
-            {contacts.length > 0 && (
-              <Filter onChange={this.changeFilterValue} />
-            )}
-            {contacts.length > 0 && (
-              <ContactList
-                contacts={filteredContacts}
-                onDelete={this.deleteContact}
-              />
-            )}
+            <Filter onChange={this.changeFilterValue} />
+
+            <ContactList
+              contacts={filteredContacts}
+              onDelete={this.deleteContact}
+            />
           </Box>
         )}
       </Container>
