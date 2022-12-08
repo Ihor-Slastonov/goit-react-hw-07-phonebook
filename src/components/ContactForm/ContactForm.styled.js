@@ -42,4 +42,8 @@ export const SubmitBtn = styled.button`
   border: 2px solid black;
   border-radius: 20px;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.75);
+  transition: background-color 250ms linear;
+  :hover {
+    background-color: #ffb830;
+  }
 `;
