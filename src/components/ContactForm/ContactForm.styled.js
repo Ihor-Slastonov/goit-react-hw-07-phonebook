@@ -43,7 +43,8 @@ export const SubmitBtn = styled.button`
   border-radius: 20px;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.75);
   transition: background-color 250ms linear;
-  :hover {
+  :hover, :focus {
+    outline: none;
     background-color: #ffb830;
   }
 `;
