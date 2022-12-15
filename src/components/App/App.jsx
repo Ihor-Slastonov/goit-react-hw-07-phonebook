@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
@@ -8,8 +8,21 @@ import { Container, Box } from './App.styled';
 import toast, { Toaster } from 'react-hot-toast';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = JSON.parse(localStorage.getItem('contacts'));
+    if (savedContacts === null) {
+      return [];
+    }
+    return savedContacts;
+  });
   const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    if (contacts === []) {
+      return;
+    }
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const addContact = (id, name, number) => {
     const checkedContact = contactCheck(name);
@@ -29,7 +42,7 @@ export const App = () => {
     setContacts(prevContacts =>
       prevContacts.filter(contact => contact.id !== contactId)
     );
-    toast.error('You have deleted a contact')
+    toast.error('You have deleted a contact');
   };
 
   function contactCheck(value) {
@@ -56,13 +69,13 @@ export const App = () => {
           success: {
             style: {
               background: 'green',
-              color: 'white'
+              color: 'white',
             },
           },
           error: {
             style: {
               background: 'red',
-              color: 'white'
+              color: 'white',
             },
           },
         }}
@@ -70,19 +83,3 @@ export const App = () => {
     </Container>
   );
 };
-
-//   componentDidMount() {
-//     const savedContacts = localStorage.getItem('contacts');
-//     if (savedContacts !== null) {
-//      return this.setState({
-//         contacts: JSON.parse(savedContacts),
-//       });
-//     }
-//   }
-
-//   componentDidUpdate(_, prevState) {
-//     if (prevState.contacts !== this.state.contacts) {
-//       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-//     }
-//   }
-
