@@ -8,18 +8,23 @@ import { Container, Box } from './App.styled';
 
 export const App = () => {
   const [contacts, setContacts] = useState([]);
-  // const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState('');
 
   const addContact = (id, name, number) => {
     const checkedContact = contactCheck(name);
     if(checkedContact !== undefined){
-      alert(`${name} is already in the contact list`);
+      return alert(`${name} is already in the contact list`);
     }
-    setContacts()
+    setContacts(prevContacts => [...prevContacts, {id, name, number}])
   };
 
-  const changeFilterValue = () => {};
-  const filteredContacts = () => {};
+  const changeFilterValue = value => {
+    setFilter(value)
+  };
+  const filteredContacts = () => {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter)
+  )};
   const deleteContact = () => {};
 
   function contactCheck(value) {
@@ -38,7 +43,7 @@ export const App = () => {
         <Box>
           <Filter onChange={changeFilterValue} />
 
-          <ContactList contacts={filteredContacts} onDelete={deleteContact} />
+          <ContactList contacts={filteredContacts()} onDelete={deleteContact} />
         </Box>
       )}
     </Container>
@@ -90,8 +95,8 @@ export const App = () => {
 
 //   filteredContacts = () => {
 //     const { contacts, filter } = this.state;
-//     return contacts.filter(contact =>
-//       contact.name.toLowerCase().includes(filter)
+    // return contacts.filter(contact =>
+    //   contact.name.toLowerCase().includes(filter)
 //     );
 //   };
 
