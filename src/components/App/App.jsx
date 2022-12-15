@@ -15,6 +15,7 @@ export const App = () => {
     if(checkedContact !== undefined){
       alert(`${name} is already in the contact list`);
     }
+    setContacts()
   };
 
   const changeFilterValue = () => {};
