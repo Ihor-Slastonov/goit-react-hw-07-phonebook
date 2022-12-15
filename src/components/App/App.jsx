@@ -1,10 +1,11 @@
-import { useState} from 'react';
+import { useState } from 'react';
 
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
 
 import { Container, Box } from './App.styled';
+import toast, { Toaster } from 'react-hot-toast';
 
 export const App = () => {
   const [contacts, setContacts] = useState([]);
@@ -12,20 +13,24 @@ export const App = () => {
 
   const addContact = (id, name, number) => {
     const checkedContact = contactCheck(name);
-    if(checkedContact !== undefined){
-      return alert(`${name} is already in the contact list`);
+    if (checkedContact !== undefined) {
+      return toast.error(`${name} is already in the contact list`);
     }
-    setContacts(prevContacts => [...prevContacts, {id, name, number}])
+    setContacts(prevContacts => [...prevContacts, { id, name, number }]);
+    toast.success('You have added a new contact');
   };
 
-  const changeFilterValue = value => {
-    setFilter(value)
-  };
   const filteredContacts = () => {
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter)
-  )};
-  const deleteContact = () => {};
+    );
+  };
+  const deleteContact = contactId => {
+    setContacts(prevContacts =>
+      prevContacts.filter(contact => contact.id !== contactId)
+    );
+    toast.error('You have deleted a contact')
+  };
 
   function contactCheck(value) {
     return contacts.find(
@@ -41,19 +46,30 @@ export const App = () => {
       {contacts.length > 0 && <h2>Contacts</h2>}
       {contacts.length > 0 && (
         <Box>
-          <Filter onChange={changeFilterValue} />
+          <Filter onChange={setFilter} />
 
           <ContactList contacts={filteredContacts()} onDelete={deleteContact} />
         </Box>
       )}
+      <Toaster
+        toastOptions={{
+          success: {
+            style: {
+              background: 'green',
+              color: 'white'
+            },
+          },
+          error: {
+            style: {
+              background: 'red',
+              color: 'white'
+            },
+          },
+        }}
+      />
     </Container>
   );
 };
-// export class App extends Component {
-//   state = {
-//     contacts: [],
-//     filter: '',
-//   };
 
 //   componentDidMount() {
 //     const savedContacts = localStorage.getItem('contacts');
@@ -70,63 +86,3 @@ export const App = () => {
 //     }
 //   }
 
-//   addContact = (id, name, number) => {
-//     const checkedContact = this.contactCheck(name);
-//     if (checkedContact !== undefined) {
-//       alert(`${name} is already in the contact list`);
-//       return;
-//     }
-//     this.setState(prevState => ({
-//       contacts: [...prevState.contacts, { id, name, number }],
-//     }));
-//   };
-
-// contactCheck = value => {
-//   return this.state.contacts.find(
-//     contact => contact.name.toLowerCase() === value.toLowerCase()
-//   );
-// };
-
-//   changeFilterValue = value => {
-//     this.setState({
-//       filter: value,
-//     });
-//   };
-
-//   filteredContacts = () => {
-//     const { contacts, filter } = this.state;
-    // return contacts.filter(contact =>
-    //   contact.name.toLowerCase().includes(filter)
-//     );
-//   };
-
-//   deleteContact = contactId => {
-//     this.setState(prevState => ({
-//       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-//     }));
-//   };
-
-//   render() {
-//     const { contacts } = this.state;
-//     const filteredContacts = this.filteredContacts();
-
-//     return (
-//       <Container>
-//         <h1>Phonebook</h1>
-//         <ContactForm onSubmit={this.addContact} />
-
-//         {contacts.length > 0 && <h2>Contacts</h2>}
-//         {contacts.length > 0 && (
-//           <Box>
-//             <Filter onChange={this.changeFilterValue} />
-
-//             <ContactList
-//               contacts={filteredContacts}
-//               onDelete={this.deleteContact}
-//             />
-//           </Box>
-//         )}
-//       </Container>
-//     );
-//   }
-// }

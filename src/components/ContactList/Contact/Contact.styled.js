@@ -18,6 +18,7 @@ export const Item = styled.li`
 export const ContactInfo = styled.p`
   font-size: 18px;
   font-weight: 600;
+  text-transform: capitalize;
 `;
 export const DeleteBtn = styled.button`
   display: block;
