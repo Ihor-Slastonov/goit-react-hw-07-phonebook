@@ -1,10 +1,10 @@
-import { nanoid } from 'nanoid';
+
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 import { Form, Field, Input, SubmitBtn } from './ContactForm.styled';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -22,20 +22,8 @@ export const ContactForm = ({ onSubmit }) => {
     }
   };
 
-  const onFormSubmit = e => {
-    e.preventDefault();
-    onSubmit(nanoid(), name, number);
-    resetForm();
-  };
-
-  function resetForm() {
-    setName('');
-    setNumber('');
-    return;
-  }
-
   return (
-    <Form onSubmit={onFormSubmit} autoComplete="off">
+    <Form  autoComplete="off">
       <Field>
         Name
         <Input
@@ -68,6 +56,6 @@ export const ContactForm = ({ onSubmit }) => {
   );
 };
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
