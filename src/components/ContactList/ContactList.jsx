@@ -6,7 +6,7 @@ import { Contacts } from './ContactList.styled';
 export const ContactList = ({ contacts, onDelete }) => {
   return (
     <Contacts>
-      {[].map(contact => {
+      {contacts.map(contact => {
         const { id, name, number } = contact;
         return (
           <Contact
@@ -22,13 +22,13 @@ export const ContactList = ({ contacts, onDelete }) => {
   );
 };
 
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       number: PropTypes.string.isRequired,
-//     }).isRequired
-//   ),
-//   onDelete: PropTypes.func,
-// };
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    }).isRequired
+  ),
+  onDelete: PropTypes.func,
+};

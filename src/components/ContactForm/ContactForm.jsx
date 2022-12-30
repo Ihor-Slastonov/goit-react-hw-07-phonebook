@@ -1,10 +1,9 @@
-
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 import { Form, Field, Input, SubmitBtn } from './ContactForm.styled';
 
-export const ContactForm = () => {
+export const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -22,8 +21,20 @@ export const ContactForm = () => {
     }
   };
 
+  const onFormSubmit = e => {
+    e.preventDefault();
+    onSubmit(name, number);
+    resetForm();
+  };
+
+  function resetForm() {
+    setName('');
+    setNumber('');
+    return;
+  }
+
   return (
-    <Form  autoComplete="off">
+    <Form onSubmit={onFormSubmit} autoComplete="off">
       <Field>
         Name
         <Input
@@ -56,6 +67,6 @@ export const ContactForm = () => {
   );
 };
 
-// ContactForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
