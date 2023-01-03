@@ -12,3 +12,8 @@ export const Box = styled.div`
   border-radius: 20px;
   background-color: #3db2ff;
 `;
+
+export const EmptyList = styled.p`
+  font-size: 24px;
+  text-align: center;
+`;

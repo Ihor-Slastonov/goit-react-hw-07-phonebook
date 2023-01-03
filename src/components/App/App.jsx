@@ -8,7 +8,7 @@ import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
 
-import { Container, Box } from './App.styled';
+import { Container, Box, EmptyList } from './App.styled';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -48,6 +48,7 @@ export const App = () => {
       <ContactForm onSubmit={addNewContact} />
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
+      {contacts.length === 0 && <EmptyList>Your contact list is empty!</EmptyList>}
       {contacts.length > 0 && <h2>Contacts</h2>}
       {contacts.length > 0 && (
         <Box>
