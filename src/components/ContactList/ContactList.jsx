@@ -3,7 +3,7 @@ import { Contact } from './Contact/Contact';
 
 import { Contacts } from './ContactList.styled';
 
-export const ContactList = ({ contacts, onDelete }) => {
+export const ContactList = ({ contacts}) => {
   return (
     <Contacts>
       {contacts.map(contact => {
@@ -14,7 +14,6 @@ export const ContactList = ({ contacts, onDelete }) => {
             id={id}
             name={name}
             number={number}
-            onDelete={onDelete}
           />
         );
       })}
@@ -30,5 +29,4 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     }).isRequired
   ),
-  onDelete: PropTypes.func,
 };

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
@@ -48,7 +47,6 @@ export const App = () => {
       {contacts.length > 0 && (
         <Box>
           <Filter/>
-
           <ContactList contacts={filteredContacts()} />
         </Box>
       )}
